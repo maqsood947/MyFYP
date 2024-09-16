@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import HomeScreen from '../screens/Home';
-
+import SignUpScreen from "../screens/SignUpScreen";
+import LoginScreen from "../screens/LoginScreen";
 import AnalysisScreen from '../screens/Analysis';
-import AccountsScreen from '../screens/Accounts';
-import CategoriesScreen from '../screens/categories';
+
 import TAbNavigation from './TabNAvigation';
 import MyDrawer from './DrawerNAvigation';
 import ProfileScreen from '../screens/Profile';
@@ -17,7 +16,7 @@ const StackNavigation = () => {
 
   return (
    
-    <Stack.Navigator>
+    <Stack.Navigator >
     <Stack.Screen name="TAbNavigation" component={TAbNavigation} options={{headerShown:false}} />
     <Stack.Screen name="Settings" component={SettingScreen} options={{headerShown:false}} />
 
@@ -26,17 +25,11 @@ const StackNavigation = () => {
     <Stack.Screen name="Home" component={HomeScreen} options={{headerShown:false}} />
     <Stack.Screen name="Analysis" component={AnalysisScreen} options={{headerShown:false}} />
     <Stack.Screen name="Profile" component={ProfileScreen} options={{headerShown:false}} />
+    <Stack.Screen name="SignUpScreen" component={SignUpScreen} options={{headerShown:false}} />
+    <Stack.Screen name="LoginScreen" component={LoginScreen} options={{headerShown:false}} />
 
      
-      {/* <Stack.Screen name="Onboarding" component={Onboarding} options={{headerShown:false}} />
-      <Stack.Screen name="Welcome" component={Welcome} options={{headerShown:false}} />
-      <Stack.Screen name="Home" component={Home} options={{headerShown:false}} />
-      <Stack.Screen name="DesignCharactor" component={DesignCharactor} options={{headerShown:false}} />
-      
-      <Stack.Screen name="Login" component={Login} options={{headerShown:false}} />
-      <Stack.Screen name="ChoosePyjama" component={ChoosePyjama} options={{headerShown:false}} />
-      <Stack.Screen name="Inputfieldanimation" component={Inputfieldanimation} options={{headerShown:false}} />
-      <Stack.Screen name="Profile" component={Profile} options={{headerShown:false}} /> */}
+   
     
 
       

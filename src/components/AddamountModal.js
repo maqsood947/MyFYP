@@ -3,45 +3,62 @@ import { StyleSheet } from "react-native";
 import { Modal, TextInput } from "react-native-paper";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { onValue, push, ref, remove, update } from "firebase/database";
+import { ref, push, update } from 'firebase/database';
 
-const AddItemsModal = ({ modalVisible, setModalVisible }) => {
+const AddamountModal = ({ modalVisible, setModalVisible }) => {
   const [newMineralData, setNewMineralData] = useState({
-    date: "",
-    account: "",
     category: "",
     amount: "",
-    note: "",
   });
 
+  // const createNewRecord = () => {
+  //   const mineralsRef = ref(db, "Amount");
+  //   push(mineralsRef, {
+  //     ...newMineralData,
+  //   })
+  //     .then(() => {
+  //       alert("New Amount created successfully!");
+  //       setNewMineralData({
+  //         account: "",
+  //         category: "",
+  //       });
+  //       setModalVisible(false);
+  //     })
+
+  //     .catch((error) => {
+  //       alert("Error creating expense : ", error);
+  //     });
+  // };
+
+
   const createNewRecord = () => {
-    const mineralsRef = ref(db, "items");
-    push(mineralsRef, {
+    const mineralsRef = ref(db, "Amount");
+    // Create a new record under "Amount" with a unique key
+    const newAmountRef = push(mineralsRef);
+  
+    // Use update to set the data for the new "card" child node
+    update(ref(db, `Amount/${newAmountRef.key}/card`), {
       ...newMineralData,
     })
       .then(() => {
-        alert("New expense created successfully!");
+        alert("New Amount created successfully!");
         setNewMineralData({
-          date: "",
-          account: "",
           category: "",
           amount: "",
-          note: "",
         });
-        setModalVisible(false)
+        setModalVisible(false);
       })
-
       .catch((error) => {
-        alert("Error creating expense : ", error);
+        alert("Error creating amount: " + error.message);
       });
   };
+  
 
   const handleInputChange = (field, value) => {
     setNewMineralData((prevData) => ({
       ...prevData,
       [field]: value,
     }));
-    
   };
 
   return (
@@ -53,27 +70,7 @@ const AddItemsModal = ({ modalVisible, setModalVisible }) => {
       <View style={styles.modalContainer}>
         <View style={styles.modalView}>
           <Text style={styles.modalTitle}>Add Item</Text>
-          <TextInput
-            placeholder="Date"
-            placeholderTextColor={"#E7EAE5"}
-            style={styles.input}
-            value={newMineralData.date}
-            onChangeText={(text) => handleInputChange("date", text)}
-          />
-          <TextInput
-            placeholder="Account"
-            placeholderTextColor={"#E7EAE5"}
-            style={styles.input}
-            value={newMineralData.account}
-            onChangeText={(text) => handleInputChange("account", text)}
-          />
-          <TextInput
-            placeholder="Category"
-            placeholderTextColor={"#E7EAE5"}
-            style={styles.input}
-            value={newMineralData.category}
-            onChangeText={(text) => handleInputChange("category", text)}
-          />
+          
           <TextInput
             placeholder="Amount"
             placeholderTextColor={"#E7EAE5"}
@@ -83,12 +80,13 @@ const AddItemsModal = ({ modalVisible, setModalVisible }) => {
             onChangeText={(text) => handleInputChange("amount", text)}
           />
           <TextInput
-            placeholder="Note"
+            placeholder="category"
             placeholderTextColor={"#BFD4BF"}
             style={styles.input}
-            value={newMineralData.note}
-            onChangeText={(text) => handleInputChange("note", text)}
+            value={newMineralData.category}
+            onChangeText={(text) => handleInputChange("category", text)}
           />
+         
           <View style={styles.modalButtons}>
             <TouchableOpacity
               style={styles.cancelButton}
@@ -170,4 +168,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
-export default AddItemsModal;
+
+
+export default AddamountModal;

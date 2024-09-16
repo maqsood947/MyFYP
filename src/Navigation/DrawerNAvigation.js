@@ -6,6 +6,8 @@ import { MaterialIcons } from '@expo/vector-icons'; // Importing icons from Expo
 import StackNavigation from './StackNavigation';
 import ProfileScreen from '../screens/Profile';
 import SettingScreen from '../screens/Settings';
+import SignUpScreen from "../screens/SignUpScreen"
+import LoginScreen from "../screens/LoginScreen"
 
 
 const Drawer = createDrawerNavigator();
@@ -43,6 +45,18 @@ function CustomDrawerContent(props) {
         onPress={() => props.navigation.navigate('Home')}
         rightIcon="chevron-right"
       />
+      <CustomDrawerItem
+      leftIcon="home" 
+        label="signup"
+        onPress={() => props.navigation.navigate('SignUpScreen')}
+        rightIcon="chevron-right"
+      />
+      <CustomDrawerItem
+      leftIcon="home" 
+        label="login"
+        onPress={() => props.navigation.navigate('LoginScreen')}
+        rightIcon="chevron-right"
+      />
 
 
       <CustomDrawerItem
@@ -66,6 +80,20 @@ function CustomDrawerContent(props) {
         rightIcon="chevron-right"
       />
      
+
+     <CustomDrawerItem
+         leftIcon="help"
+        label="Help"
+        
+        rightIcon="chevron-right"
+      />
+
+<CustomDrawerItem
+         leftIcon="thumb-up"
+        label="Like BudgetBuddy"
+        // onPress={() => props.navigation.navigate()}
+        rightIcon="chevron-right"
+      />
     </DrawerContentScrollView>
   );
 }

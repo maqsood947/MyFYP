@@ -1,22 +1,23 @@
-import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { loginUser } from './db'; // Import your login function
-import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState } from "react";
+import { View, TextInput, TouchableOpacity, Text, StyleSheet } from "react-native";
+import { loginUser } from "../firebase"; 
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const LoginScreen = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [email, setEmail] = useState(""); // Change username to email
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigation = useNavigation();
 
   const handleLogin = async () => {
     try {
-      const user = await loginUser(username, password);  // Fetch user
-      console.log('Login successful:', user);
-      navigation.navigate('HomeScreen');  // Navigate to home on successful login
+      const user = await loginUser(email, password); // Authenticate using Firebase
+      console.log("Login successful:", user);
+      navigation.navigate("Home"); // Navigate to home on successful login
     } catch (error) {
-      setErrorMessage('Invalid credentials');
+      console.error(error);
+      setErrorMessage(error.message); // Display Firebase error message
     }
   };
 
@@ -26,10 +27,10 @@ const LoginScreen = () => {
       <Text style={styles.title}>Login</Text>
 
       <TextInput
-        placeholder="Username"
+        placeholder="Email"
         placeholderTextColor="#E7EAE5"
-        value={username}
-        onChangeText={setUsername}
+        value={email}
+        onChangeText={setEmail}
         style={styles.input}
       />
 
@@ -48,7 +49,7 @@ const LoginScreen = () => {
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate('SignupScreen')}>
+      <TouchableOpacity onPress={() => navigation.navigate("SignupScreen")}>
         <Text style={styles.signupText}>Don't have an account? Sign up</Text>
       </TouchableOpacity>
     </View>
@@ -59,46 +60,46 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    justifyContent: 'center',
-    backgroundColor: '#004e92',
+    justifyContent: "center",
+    backgroundColor: "#004e92",
   },
   title: {
     fontSize: 24,
-    color: '#ffffff',
-    fontWeight: 'bold',
+    color: "#ffffff",
+    fontWeight: "bold",
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: "center",
   },
   input: {
-    backgroundColor: '#004e92',
-    borderBottomColor: '#ffffff',
+    backgroundColor: "#004e92",
+    borderBottomColor: "#ffffff",
     borderBottomWidth: 1,
-    color: '#ffffff',
+    color: "#ffffff",
     marginBottom: 20,
     paddingHorizontal: 10,
     paddingVertical: 10,
   },
   errorText: {
-    color: 'red',
-    textAlign: 'center',
+    color: "red",
+    textAlign: "center",
     marginBottom: 20,
   },
   loginButton: {
-    backgroundColor: '#007ACC',
+    backgroundColor: "#007ACC",
     borderRadius: 5,
     paddingVertical: 10,
     marginBottom: 10,
     elevation: 3,
   },
   buttonText: {
-    color: '#ffffff',
-    textAlign: 'center',
+    color: "#ffffff",
+    textAlign: "center",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   signupText: {
-    color: '#ffffff',
-    textAlign: 'center',
+    color: "#ffffff",
+    textAlign: "center",
     marginTop: 10,
   },
 });
